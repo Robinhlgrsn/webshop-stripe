@@ -1,7 +1,11 @@
+
+import Header from "./components/layout/Header";
+import Layout from "./components/layout/Layout";
+import Cart from './components/cart/Cart'
 /* Stripe */
 import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
-import Cart from './components/cart/Cart'
+
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
 const stripePromise = loadStripe('pk_test_51Jblj9CX6tkCxnbcVqNnJkUpBsGU3WolUnKW0zMM7U8RBWOLu2p2WuBbts0Q21ysVDiwb6indLpIfSz9loNsw3js00zem4AjyI');
@@ -27,14 +31,16 @@ const stripePromise = loadStripe('pk_test_51Jblj9CX6tkCxnbcVqNnJkUpBsGU3WolUnKW0
   console.log(response)
 } */
 
+
 function App() {
- 
+  
   return (
-    <div className="text-6xl">
-      <h1>Hello</h1>
-     <Cart></Cart>
-     
-    </div>
+
+    <Layout>
+      <Header />
+      <Cart></Cart>
+    </Layout>
+
   );
 }
 
