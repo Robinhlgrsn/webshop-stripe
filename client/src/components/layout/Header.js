@@ -2,7 +2,8 @@ import React from 'react'
 import Button from '../UI/Button';
 import { AiOutlineShopping } from "react-icons/ai";
 
-const Header = () => {
+const Header = (props) => {
+
   return (
     <div className="w-full shadow-lg">
       <header className="flex items-center container mx-auto py-4">        
@@ -10,7 +11,7 @@ const Header = () => {
           StripeShop
         </div>
         <div>
-          <Button>
+          <Button onClick={() => {props.onToggleCart()}}>
               <AiOutlineShopping className="mx-1 text-2xl" />
               <div className="mx-1">1050:-</div>
               <div className="px-2 mx-1 text-center rounded-full bg-gray-50 text-gray-900">3</div>
