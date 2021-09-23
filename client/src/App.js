@@ -5,38 +5,47 @@ import Layout from "./components/layout/Layout";
 import productData from './data/productData'
 import Cart from './components/cart/Cart'
 
-function updateCart(cart, product) {
-  const updatedCart = cart.items.concat(product)
-  console.log(updatedCart)
-  return Object.assign({}, cart, { items: updatedCart})
-}
-
-function updateQuantity(match) {
-
-}
 
 function App() {
   const [cartIsOpen, setCartIsOpen] = useState(false);
   const [cart, setCart] = useState({ items: [], totalAmount: 0 });
+  
+  
+  const addProductToCart = (item) => {
+    let existingIndex = cart.items.findIndex(product => item.id === product.id)
+    const updatedCart = cart.items.concat(item)
 
-  const addProductToCart = (id) => {
-    let productToAdd = productData.find(product => product.id === id);
-    let match = cart.items.find(product => productToAdd.id === product.id)
+    let totalPriceItem;
+    let pricesArray = [];
+    updatedCart.forEach((item) => {
+      totalPriceItem = item.quantity * item.price;
+      pricesArray.push(totalPriceItem);
+    });
+    let total = pricesArray.reduce((a, b) => a + b, 0);
 
-      if(match) {
-        updateQuantity(productToAdd)
-      } else {
-        setCart(updateCart(cart, productToAdd));
-      }
+    if(existingIndex !== -1) {
+      let products = [...cart.items]
+      let product = products[existingIndex]
+      product.quantity++
+      setCart({...cart, items: products, totalAmount: total})
+    } else {
+      setCart({ ...cart, items: updatedCart, totalAmount: total});
+    }
   }
+  
+  const toggleCart = () => setCartIsOpen(!cartIsOpen);
 
   console.log(cart)
-  const toggleCart = () => setCartIsOpen(!cartIsOpen);
 
   return (
     <Layout>
-      <Header onToggleCart={toggleCart} />
-      { !cartIsOpen ? <Products onAddProduct={addProductToCart} productData={productData} /> : <Cart/> }
+      <Header cartData={cart} onToggleCart={toggleCart} />
+      { !cartIsOpen ? 
+        <Products
+          onAddProduct={addProductToCart}
+          productData={productData} /> :
+        <Cart toggle={toggleCart} cartData={cart} /> 
+      }
     </Layout>
   );
 }

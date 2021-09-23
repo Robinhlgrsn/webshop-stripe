@@ -3,8 +3,8 @@ import Button from '../UI/Button';
 
 const ProductItem = (props) => {
 
-  const addToCartHandler = (id) => {
-    props.onAddProduct(id)
+  const addToCartHandler = (item) => {
+    props.onAddProduct(item)
   } 
 
   return (
@@ -18,7 +18,7 @@ const ProductItem = (props) => {
           <h3>{props.price}$</h3>
         </div>
         <p className="my-4">{props.description}</p>
-        <Button onClick={() => addToCartHandler(props.id)}>BUY</Button>
+        <Button onClick={() => addToCartHandler({ id: props.id, name: props.name, price: props.price, img: props.imgUrl, quantity: 1 })}>BUY</Button>
       </section>
     </div>
   )
