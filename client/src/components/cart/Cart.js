@@ -1,47 +1,21 @@
 import React, { useState } from "react";
+import { formatPrice } from "../../handler/currency";
 import CartItem from "./CartItem";
-const testData = [
-  {
-    img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80",
-    name: "Shoe",
-    quantity: "2",
-    price: "500",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80",
-    name: "Hat",
-    quantity: "1",
-    price: "500",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80",
-    name: "Cap",
-    quantity: "2",
-    price: "500",
-  },
-];
-export default function Cart() {
-  const [totalAmount, setTotalAmount] = useState(0);
+import Button from "../UI/Button";
+export default function Cart(props) {
 
-  const calcTotalPrice = () => {
-    let price;
-    let quantity;
-    let totalPriceItem;
+  if (props.cartData.items.length <= 0) {
+    return (
+    <div className="container mx-auto flex flex-col mt-10 shadow-lg p-4">
+      <header className="text-center text-2xl font-bold py-4">Cart is empty!</header>
+    </div>
+    )
+  }
 
-    let array = [];
-    testData.forEach((item) => {
-      price = item.price;
-      quantity = item.quantity;
-      totalPriceItem = quantity * price;
-      array.push(totalPriceItem);
-    });
-    let total = array.reduce((a, b) => a + b);
-    setTotalAmount(total);
-    console.log(total);
-  };
   return (
-    <div className="container mx-auto bg-green-600 flex flex-col">
-      {testData.map((item) => (
+    <div className="container mx-auto flex flex-col mt-10 shadow-lg p-4">
+      <header className="text-center text-2xl font-bold py-4">Cart</header>
+      {props.cartData.items.map((item) => (
         <div key={item.name}>
           <CartItem
             img={item.img}
@@ -51,14 +25,18 @@ export default function Cart() {
           />
         </div>
       ))}
+      <span className="w-full divide-y-2 divide-fuchsia-300 py-2">
+        <div></div>
+        <div></div>
+      </span>
 
-      <div className=" bg-green-600 flex justify-between text-4xl">
-        <div className=" bg-green-600">Total price</div>
-        <div className=" bg-red-600 px-8">{totalAmount}:-</div>
+      <div className="flex justify-between text-4xl py-4">
+        <div className="">Total price</div>
+        <div className="">{formatPrice(props.cartData.totalAmount)}$</div>
       </div>
-      <button onClick={calcTotalPrice} className="self-center">
+      <Button  className="self-center">
         CheckOut
-      </button>
+      </Button>
     </div>
   );
 }
