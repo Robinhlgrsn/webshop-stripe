@@ -1,24 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { formatPrice } from "../../handler/currency";
+import { useStripe } from "@stripe/react-stripe-js";
+import { formatPrice } from "../../handlers/currency";
 import CartItem from "./CartItem";
 import Button from "../UI/Button";
-import { useStripe, CardElement } from "@stripe/react-stripe-js";
 
 export default function Cart(props) {
   const stripe = useStripe()
-
-  useEffect(() => {
-    // Check to see if this is a redirect back from Checkout
-    const query = new URLSearchParams(window.location.search);
-    if (query.get("success")) {
-      alert("Order placed! You will receive an email confirmation.");
-    }
-    if (query.get("canceled")) {
-      alert(
-        "Order canceled -- continue to shop around and checkout when you're ready."
-      );
-    }
-  }, []);
 
   const items = props.cartData.items.map((item) => {
     return {
@@ -57,10 +44,11 @@ export default function Cart(props) {
     console.log(id)
   }
 
+
+
   return (
     <div className="container mx-auto flex flex-col mt-10 shadow-lg p-4">
       <header className="text-center text-2xl font-bold py-4">Cart</header>
-      <CardElement/>
       {props.cartData.items.map((item) => (
         <div key={item.name}>
           <CartItem

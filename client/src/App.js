@@ -1,15 +1,24 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Products from './components/products/Products'
+import Success from './pages/Success';
+import { Switch, Route } from 'react-router-dom';
 import Header from "./components/layout/Header";
 import Layout from "./components/layout/Layout";
 import productData from './data/productData'
 import Cart from './components/cart/Cart'
+import { setLocalstorage, getLocalstorage } from './handlers/localstorage'
 
 function App() {
-  const [cartIsOpen, setCartIsOpen] = useState(false);
   const [cart, setCart] = useState({ items: [], totalAmount: 0 });
-  
-  
+  const savedCart = getLocalstorage();
+
+  useEffect(() => {
+    if (savedCart !== null) {
+      setCart(savedCart)
+    }
+  }, [])
+
+
   const addProductToCart = (item) => {
     let existingIndex = cart.items.findIndex(product => item.id === product.id)
     const updatedCart = cart.items.concat(item)
@@ -27,25 +36,32 @@ function App() {
       let product = products[existingIndex]
       product.quantity++
       setCart({...cart, items: products, totalAmount: total})
+      setLocalstorage({...cart, items: products, totalAmount: total})
     } else {
       setCart({ ...cart, items: updatedCart, totalAmount: total});
+      setLocalstorage({...cart, items: updatedCart, totalAmount: total})
     }
   }
-  
-  const toggleCart = () => setCartIsOpen(!cartIsOpen);
 
-  console.log(cart)
+  const clearCart = () => {
+    setCart({ items: [], totalAmount: 0 })
+  }
 
   return (
-    <Layout>
-      <Header cartData={cart} onToggleCart={toggleCart} />
-      { !cartIsOpen ? 
-        <Products
-          onAddProduct={addProductToCart}
-          productData={productData} /> :
-        <Cart toggle={toggleCart} cartData={cart} /> 
-      }
-    </Layout>
+    <Switch>
+      <Layout>
+        <Header cartData={cart} />
+        <Route path="/" exact>
+          <Products onAddProduct={addProductToCart} productData={productData} /> 
+        </Route>
+        <Route path="/cart">
+          <Cart cartData={cart} /> 
+        </Route>
+        <Route path="/success">
+          <Success onCheckout={clearCart} />
+        </Route>
+      </Layout>
+    </Switch>
   );
 }
 
