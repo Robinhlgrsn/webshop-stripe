@@ -5,7 +5,6 @@ import Layout from "./components/layout/Layout";
 import productData from './data/productData'
 import Cart from './components/cart/Cart'
 
-
 function App() {
   const [cartIsOpen, setCartIsOpen] = useState(false);
   const [cart, setCart] = useState({ items: [], totalAmount: 0 });
