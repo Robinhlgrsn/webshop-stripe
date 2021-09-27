@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import { useStripe } from "@stripe/react-stripe-js";
 import { formatPrice } from "../../handlers/currency";
 import CartItem from "./CartItem";
@@ -24,7 +23,10 @@ export default function Cart(props) {
   if (props.cartData.items.length <= 0) {
     return (
     <div className="container mx-auto flex flex-col mt-10 shadow-lg p-4">
+      <span className="w-full divide-y-2 divide-fuchsia-300 py-2">
       <header className="text-center text-2xl font-bold py-4">Cart is empty!</header>
+        <div></div>
+      </span>
     </div>
     )
   }
@@ -69,7 +71,7 @@ export default function Cart(props) {
         <div className="">{formatPrice(props.cartData.totalAmount)}$</div>
       </div>
       <Button onClick={sendReq}  className="self-center">
-        CheckOut
+        Check out
       </Button>
     </div>
   );

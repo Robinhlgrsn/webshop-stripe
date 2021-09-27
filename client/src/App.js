@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
-import Products from './components/products/Products'
-import Success from './pages/Success';
 import { Switch, Route } from 'react-router-dom';
+import Products from './components/products/Products'
 import Header from "./components/layout/Header";
 import Layout from "./components/layout/Layout";
 import productData from './data/productData'
+import Success from './pages/Success';
 import Cart from './components/cart/Cart'
-import { setLocalstorage, getLocalstorage } from './handlers/localstorage'
+import { setLocalstorage, getLocalstorage } from './handlers/localstorage';
+import { calcTotalAmount, updateProductQuantity } from './handlers/cart';
 
 function App() {
   const [cart, setCart] = useState({ items: [], totalAmount: 0 });
@@ -16,30 +17,21 @@ function App() {
     if (savedCart !== null) {
       setCart(savedCart)
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-
+  
   const addProductToCart = (item) => {
-    let existingIndex = cart.items.findIndex(product => item.id === product.id)
-    const updatedCart = cart.items.concat(item)
-
-    let totalPriceItem;
-    let pricesArray = [];
-    updatedCart.forEach((item) => {
-      totalPriceItem = item.quantity * item.price;
-      pricesArray.push(totalPriceItem);
-    });
-    let total = pricesArray.reduce((a, b) => a + b, 0);
-
+    const existingIndex = cart.items.findIndex(product => item.id === product.id);
+    const updatedCart = cart.items.concat(item);
+    const totalAmount = calcTotalAmount(updatedCart);
+    
     if(existingIndex !== -1) {
-      let products = [...cart.items]
-      let product = products[existingIndex]
-      product.quantity++
-      setCart({...cart, items: products, totalAmount: total})
-      setLocalstorage({...cart, items: products, totalAmount: total})
+      const products = updateProductQuantity(cart, existingIndex);
+      setCart({ ...cart, items: products, totalAmount });
+      setLocalstorage({ ...cart, items: products, totalAmount });
     } else {
-      setCart({ ...cart, items: updatedCart, totalAmount: total});
-      setLocalstorage({...cart, items: updatedCart, totalAmount: total})
+      setCart({ ...cart, items: updatedCart, totalAmount});
+      setLocalstorage({ ...cart, items: updatedCart, totalAmount });
     }
   }
 
@@ -58,7 +50,7 @@ function App() {
           <Cart cartData={cart} /> 
         </Route>
         <Route path="/success">
-          <Success onCheckout={clearCart} />
+          <Success onClearCart={clearCart} />
         </Route>
       </Layout>
     </Switch>

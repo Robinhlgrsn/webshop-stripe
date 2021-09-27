@@ -9,8 +9,6 @@ const Success = (props) => {
   let query = useQuery()
   query.get('session_id')
 
-
-
   useEffect(() => {
     const verify = async () => {
       const response = await fetch('http://localhost:8000/create-checkout-session/verify', {
@@ -24,9 +22,10 @@ const Success = (props) => {
       const data = await response.json();
       console.log(data);
       localStorage.clear()
-      props.onCheckout()
+      props.onClearCart()
     }
     verify();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

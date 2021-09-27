@@ -9,8 +9,8 @@ const ProductItem = (props) => {
 
   return (
     <div className="flex flex-col w-full rounded shadow-xl mx-4 ">
-      <header className="w-full h-80">
-        <img src={props.imgUrl} alt={props.name} className="object-cover w-full h-full rounded-t-xl" />
+      <header className="w-full h-2/3">
+        <img src={props.imgUrl} alt={props.name} className="object-cover w-full h-full rounded-t-md" />
       </header>
       <section className="flex flex-col p-4">
         <div className="flex justify-between font-bold">
