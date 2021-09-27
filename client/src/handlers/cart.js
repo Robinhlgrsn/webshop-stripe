@@ -17,6 +17,9 @@ function updateProductQuantity(cart, index, type) {
   } else if (type === 'subtract') {
     product.quantity--
   }
+  if (product.quantity <= 0) {
+    products.splice(index, 1);
+  }
   return products
 }
 

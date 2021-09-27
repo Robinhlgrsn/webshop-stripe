@@ -21,7 +21,6 @@ function App() {
   }, [])
   
   const addProductToCart = (item) => {
-    
     const existingIndex = cart.items.findIndex(product => item.id === product.id);
     if(existingIndex !== -1) {
       const products = updateProductQuantity(cart, existingIndex, item.type);
