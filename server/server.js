@@ -6,8 +6,6 @@ const port = 8000
 const env = require('dotenv');
 env.config('.env')
 
-
-
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY
 console.log(STRIPE_SECRET_KEY)
 
@@ -15,7 +13,6 @@ const cors = require('cors');
 
 app.use(express.json());
 app.use(cors());
-
 
 app.post('/create-checkout-session', async (req, res) => {
     const session = await stripe.checkout.sessions.create({  
@@ -49,7 +46,6 @@ app.post('/create-checkout-session/verify', async (req, res) => {
   }
 });
   
-
 app.listen(port, () =>{
-    console.log(`App listening at http://localhost:${port}`)
-})
+    console.log(`App listening at http://localhost:${port}`);
+});
