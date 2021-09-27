@@ -9,10 +9,14 @@ function calcTotalAmount(cart) {
   return totalAmount;
 }
 
-function updateProductQuantity(cart, index) {
+function updateProductQuantity(cart, index, type) {
   let products = [...cart.items]
   let product = products[index]
-  product.quantity++
+  if(type === 'add') {
+    product.quantity++
+  } else if (type === 'subtract') {
+    product.quantity--
+  }
   return products
 }
 

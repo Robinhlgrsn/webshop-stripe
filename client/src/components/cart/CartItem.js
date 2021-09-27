@@ -1,6 +1,7 @@
 import React from "react";
 
 export default function CartItem(props) {
+
   return (
     <div className="container mx-auto flex text-4xl items-center py-2">
       <div className="flex flex-1 items-center ">
@@ -11,9 +12,9 @@ export default function CartItem(props) {
       </div>
       <div className="flex flex-1 justify-end h-full">
         <div className="flex flex-1 justify-end">
-          <button>-</button>
+        <button onClick={() => {props.onUpdatedCart({ id:props.id, type: 'subtract' })}}>-</button>
           <div className="px-4">{props.quantity}</div>
-          <button>+</button>
+          <button onClick={() => {props.onUpdatedCart({ id:props.id, type: 'add' })}}>+</button>
         </div>
         <div className="flex flex-1 justify-end">
           <div>{props.price}$</div>

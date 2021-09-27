@@ -21,15 +21,16 @@ function App() {
   }, [])
   
   const addProductToCart = (item) => {
-    const existingIndex = cart.items.findIndex(product => item.id === product.id);
-    const updatedCart = cart.items.concat(item);
-    const totalAmount = calcTotalAmount(updatedCart);
     
+    const existingIndex = cart.items.findIndex(product => item.id === product.id);
     if(existingIndex !== -1) {
-      const products = updateProductQuantity(cart, existingIndex);
+      const products = updateProductQuantity(cart, existingIndex, item.type);
+      const totalAmount = calcTotalAmount(products);
       setCart({ ...cart, items: products, totalAmount });
       setLocalstorage({ ...cart, items: products, totalAmount });
     } else {
+      const updatedCart = cart.items.concat(item);
+      const totalAmount = calcTotalAmount(updatedCart);
       setCart({ ...cart, items: updatedCart, totalAmount});
       setLocalstorage({ ...cart, items: updatedCart, totalAmount });
     }
@@ -47,7 +48,7 @@ function App() {
           <Products onAddProduct={addProductToCart} productData={productData} /> 
         </Route>
         <Route path="/cart">
-          <Cart cartData={cart} /> 
+          <Cart cartData={cart} onUpdatedCart={addProductToCart} /> 
         </Route>
         <Route path="/success">
           <Success onClearCart={clearCart} />

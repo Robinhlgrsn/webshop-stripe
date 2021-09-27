@@ -18,7 +18,7 @@ const ProductItem = (props) => {
           <h3>{props.price}$</h3>
         </div>
         <p className="my-4">{props.description}</p>
-        <Button onClick={() => addToCartHandler({ id: props.id, name: props.name, price: props.price, img: props.imgUrl, quantity: 1 })}>BUY</Button>
+        <Button onClick={() => addToCartHandler({ id: props.id, name: props.name, price: props.price, img: props.imgUrl, quantity: 1, type: 'add' })}>BUY</Button>
       </section>
     </div>
   )

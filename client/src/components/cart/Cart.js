@@ -54,6 +54,8 @@ export default function Cart(props) {
       {props.cartData.items.map((item) => (
         <div key={item.name}>
           <CartItem
+            onUpdatedCart={props.onUpdatedCart}
+            id={item.id}
             img={item.img}
             name={item.name}
             quantity={item.quantity}
@@ -68,7 +70,7 @@ export default function Cart(props) {
 
       <div className="flex justify-between text-4xl py-4">
         <div className="">Total price</div>
-        <div className="">{formatPrice(props.cartData.totalAmount)}$</div>
+        <div className="">{formatPrice(props.cartData.totalAmount)}</div>
       </div>
       <Button onClick={sendReq}  className="self-center">
         Check out
