@@ -1,4 +1,13 @@
 ## webshop-stripe
+
+Github: https://github.com/Robinhlgrsn/webshop-stripe.git
+
+Vi har skapat en web shop med hjälp av nodejs, express och React. vi har parprogrammerat hela arbetet.
+
+För att starta
+Installera genom att gå in i sever & client och köra npm install.
+Stå i root och köra npm run watch
+
 1. Ni skall bygga en simpel webshop med valfri stack.
 2. Er webbshop skall ha som minst två sidor, en där produkter listas (startsida) samt en där en kundvagn finns.
 3. Det skall gå att genomföra ett köp och få en bekräftelse av att köpet genomförts.
