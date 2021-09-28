@@ -1,8 +1,9 @@
 const fs = require('fs');
-require('dotenv').config('.env')
+require('dotenv').config('.env');
 
-const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY
-const stripe = require("stripe")(STRIPE_SECRET_KEY)
+const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
+const stripe = require("stripe")(STRIPE_SECRET_KEY);
+require('dotenv').config('.env');
 
 async function createCheckoutSession(req, res) {
   const session = await stripe.checkout.sessions.create({  
@@ -35,13 +36,13 @@ async function verifyPurchase(req, res) {
 }
 
 function getJsonData() {
-  let rawdata = fs.readFileSync('./data/orderData.json');
+  let rawdata = fs.readFileSync('./src/data/orderData.json');
   return JSON.parse(rawdata);
 }
 
 function addDataToJson(jsonData, objectToAdd) {
   jsonData.push(objectToAdd)
-  fs.writeFileSync('./data/orderData.json', JSON.stringify(jsonData));
+  fs.writeFileSync('./src/data/orderData.json', JSON.stringify(jsonData));
 }
 
 module.exports = {

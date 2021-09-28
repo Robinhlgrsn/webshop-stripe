@@ -9,7 +9,7 @@ const Header = (props) => {
 
 
   return (
-    <div className="w-full shadow-lg">
+    <div className="relative w-full shadow-lg">
       <header className="flex items-center container mx-auto py-4">        
         <div onClick={() => { history.push('/')} } className={`flex-auto cursor-pointer text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br from-green-400 to-green-50`}>
           StripeShop

@@ -46,8 +46,6 @@ export default function Cart(props) {
     console.log(id)
   }
 
-
-
   return (
     <div className="container mx-auto flex flex-col mt-10 shadow-lg p-4">
       <header className="text-center text-2xl font-bold py-4">Cart</header>

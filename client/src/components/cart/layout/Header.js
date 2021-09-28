@@ -1,17 +1,16 @@
 import { AiOutlineShopping } from "react-icons/ai";
 import { useHistory } from "react-router";
-import {formatPrice} from '../../handlers/currency'
+import { formatPrice } from '../../handlers/currency'
 import Button from '../UI/Button';
 import { cartQuantity } from "../../handlers/cart";
 
 const Header = (props) => {
   const history = useHistory();
 
-
   return (
     <div className="w-full shadow-lg">
       <header className="flex items-center container mx-auto py-4">        
-        <div onClick={() => { history.push('/')} } className={`flex-auto cursor-pointer text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br from-green-400 to-green-50`}>
+        <div onClick={() => { history.push('/')} } className="logo">
           StripeShop
         </div>
         <div>

@@ -6,7 +6,7 @@ const Products = (props) => {
     <>
     <section className="container mx-auto flex flex-col items-center mt-10">
       <header className="text-2xl font-bold py-4">Products</header>
-      <section className="flex">
+      <section className="flex flex-col lg:flex-row">
         {props.productData.map(product => (
           <div className="flex flex-1" key={product.id}>
             <ProductItem
