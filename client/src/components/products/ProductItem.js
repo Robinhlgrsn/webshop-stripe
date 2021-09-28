@@ -8,12 +8,12 @@ const ProductItem = (props) => {
   } 
 
   return (
-    <div className="flex flex-col w-full rounded shadow-xl mx-4 ">
-      <header className="w-full h-2/3">
-        <img src={props.imgUrl} alt={props.name} className="object-cover w-full h-full rounded-t-md" />
+    <div className="flex flex-col flex-1 rounded shadow-xl mx-4 md:my-4">
+      <header className="flex flex-col h-96">
+          <img src={props.imgUrl} alt={props.name} className="object-cover w-full h-full rounded-t-md" />
       </header>
-      <section className="flex flex-col p-4">
-        <div className="flex justify-between font-bold">
+      <section className="flex flex-col flex-1 p-3">
+        <div className="flex flex-auto justify-between font-bold">
           <h3>{props.name}</h3>
           <h3>{props.price}$</h3>
         </div>

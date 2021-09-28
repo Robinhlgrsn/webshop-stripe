@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react'
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, useLocation } from 'react-router-dom';
+import {
+  TransitionGroup,
+  CSSTransition
+} from "react-transition-group";
 import Products from './components/products/Products'
 import Header from "./components/layout/Header";
 import Layout from "./components/layout/Layout";
@@ -12,6 +16,7 @@ import { calcTotalAmount, updateProductQuantity } from './handlers/cart';
 function App() {
   const [cart, setCart] = useState({ items: [], totalAmount: 0 });
   const savedCart = getLocalstorage();
+  let location = useLocation();
 
   useEffect(() => {
     if (savedCart !== null) {
@@ -40,20 +45,31 @@ function App() {
   }
 
   return (
-    <Switch>
-      <Layout>
-        <Header cartData={cart} />
-        <Route path="/" exact>
-          <Products onAddProduct={addProductToCart} productData={productData} /> 
-        </Route>
-        <Route path="/cart">
-          <Cart cartData={cart} onUpdatedCart={addProductToCart} /> 
-        </Route>
-        <Route path="/success">
-          <Success onClearCart={clearCart} />
-        </Route>
-      </Layout>
-    </Switch>
+    <Layout>
+      <Header cartData={cart} />
+      <div className="relative">
+        <TransitionGroup>
+          <CSSTransition
+            key={location.key}
+            classNames="fade"
+            timeout={300}>
+              <div className="absolute inset-0">
+                <Switch location={location}>
+                  <Route path="/" exact>
+                      <Products onAddProduct={addProductToCart} productData={productData} /> 
+                  </Route>
+                  <Route path="/cart">
+                    <Cart cartData={cart} onUpdatedCart={addProductToCart} /> 
+                  </Route>
+                  <Route path="/success">
+                    <Success onClearCart={clearCart} />
+                  </Route>
+                </Switch>
+              </div>
+          </CSSTransition>
+        </TransitionGroup>
+      </div>
+    </Layout>
   );
 }
 
