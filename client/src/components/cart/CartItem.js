@@ -1,4 +1,5 @@
 import React from "react";
+import Button from '../UI/Button';
 
 export default function CartItem(props) {
 
@@ -11,12 +12,16 @@ export default function CartItem(props) {
         <div className="px-8 ">{props.name}</div>
       </div>
       <div className="flex flex-1 justify-end h-full">
-        <div className="flex flex-1 justify-end">
-        <button onClick={() => {props.onUpdatedCart({ id:props.id, type: 'subtract' })}}>-</button>
-          <div className="px-4">{props.quantity}</div>
-          <button onClick={() => {props.onUpdatedCart({ id:props.id, type: 'add' })}}>+</button>
+        <div className="flex flex-1 justify-end mx-4 items-center">
+        <Button onClick={() => {props.onUpdatedCart({ id:props.id, type: 'subtract' })}}>
+        <p className="w-6 flex justify-center">-</p>
+        </Button>
+          <div className="mx-4">{props.quantity}</div>
+          <Button onClick={() => {props.onUpdatedCart({ id:props.id, type: 'add' })}}>
+          <p className="w-6 flex justify-center">+</p>
+          </Button>
         </div>
-        <div className="flex flex-1 justify-end">
+        <div className="flex flex-1 justify-end items-center">
           <div>{props.price}$</div>
         </div>
       </div>

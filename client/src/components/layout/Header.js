@@ -19,7 +19,8 @@ const Header = (props) => {
               <AiOutlineShopping className="mx-1 text-2xl" />
               <div className="mx-1">{formatPrice(props.cartData.totalAmount)}</div>
               <div className="px-2 mx-1 text-center rounded-full bg-gray-50 text-gray-900">
-                {cartQuantity(props.cartData.items)}</div>
+                <p>{cartQuantity(props.cartData.items)}</p>
+              </div>
           </Button>
         </div>
       </header>
