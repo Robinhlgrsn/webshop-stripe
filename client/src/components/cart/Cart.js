@@ -43,7 +43,6 @@ export default function Cart(props) {
     })
     const {id} = await response.json();
     stripe.redirectToCheckout({ sessionId: id })
-    console.log(id)
   }
 
   return (
